@@ -1,14 +1,30 @@
-🏨 HMS - Hotel Management System (Spring Boot)
+🏨<h1> HMS - Hotel Management System (Spring Boot)</h1>
 
-📌 Overview
+📌 <h2>Overview</h2>
 
 HMS (Hotel Management System) is a scalable, microservices-based backend solution designed to streamline hotel operations. Built with Spring Boot, it supports property management, booking, payments, and third-party integrations for notifications and authentication. The system enables seamless hotel-booking functionality similar to Airbnb.
 
-🚀 Features
+🚀 <h2>Features</h2>
 
-✅ User Management & Authentication (Role-Based Access Control)✅ Property & Room Management (CRUD operations for hotels & listings)✅ Booking & Reservation System (Search, book, and manage stays)✅ Payment Gateway Integration✅ Real-time Notifications via SMS, Email, WhatsApp✅ OTP Verification System for secure logins✅ AWS S3 Integration for image storage✅ Microservices Architecture (scalability & modular design)✅ Dockerized Deployment & CI/CD Pipelines
+✅ User Management & Authentication (Role-Based Access Control)
+<br>
+✅ Property & Room Management (CRUD operations for hotels & listings)
+<br>
+✅ Booking & Reservation System (Search, book, and manage stays)
+<br>
+✅ Payment Gateway Integration
+<br>
+✅ Real-time Notifications via SMS, Email, WhatsApp
+<br>
+✅ OTP Verification System for secure logins
+<br>
+✅ AWS S3 Integration for image storage
+<br>
+✅ Microservices Architecture (scalability & modular design)
+<br>
+✅ Dockerized Deployment & CI/CD Pipelines
 
-🛠️ Tech Stack
+🛠️<h2> Tech Stack </h2>
 
 Backend: Java, Spring Boot, Spring Security, Spring Data JPA
 
@@ -24,7 +40,7 @@ CI/CD: Jenkins, GitHub Actions
 
 Testing: JUnit, Mockito
 
-🔧 Installation & Setup
+🔧 <h2>Installation & Setup</h2>
 
 Clone the repository:
 
@@ -40,13 +56,13 @@ mvn spring-boot:run
 
 The application runs at: http://localhost:8080
 
-💼 API Endpoints
+💼<h2> API Endpoints </h2>
 
 HMS exposes RESTful APIs for managing hotels, bookings, users, and payments.
 
 Uses standard HTTP methods (GET, POST, PUT, DELETE).
 
-💡 Contribution Guidelines
+💡 <h2>Contribution Guidelines</h2>
 
 Fork the repository
 
@@ -56,6 +72,6 @@ Commit your changes with meaningful messages
 
 Submit a pull request
 
-📩 Contact
+📩 <h2>Contact</h2>
 
 For queries & collaborations, reach out at ashutech31@gmail.com
