@@ -62,6 +62,7 @@ public class PropertyController {
         return new ResponseEntity<>(updateProperty,HttpStatus.OK);
     }
 
+
     // name use to pass any filed country state city etc
     @GetMapping("/search-hotels")
     public ResponseEntity<List<PropertyDTO>> searchHotels(

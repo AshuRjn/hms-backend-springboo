@@ -14,6 +14,5 @@ public class PropertyDTO {
     private Integer noOfBeds;
     private Long countryId;
     private Long cityId;
-    private Long stateId;
     private Long zipId;
 }

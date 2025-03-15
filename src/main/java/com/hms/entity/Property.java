@@ -43,8 +43,5 @@ public class Property {
     @JoinColumn(name = "zip_code_id")
     private ZipCode zipCode;
 
-    @ManyToOne
-    @JoinColumn(name = "state_id" ,nullable = true)
-    private State state;
 
 }

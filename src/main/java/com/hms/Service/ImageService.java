@@ -1,7 +1,6 @@
 package com.hms.Service;
 
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.hms.entity.Images;
 import com.hms.entity.Property;
 import com.hms.repository.ImagesRepository;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,8 +25,6 @@ public class ImageService {
         this.imagesRepository = imagesRepository;
         this.amazonS3 = amazonS3;
     }
-
-
 
     public Images uploadPropertyImages(String imageUrl, long propertyId) {
         Property property = propertyRepository.findById(propertyId)

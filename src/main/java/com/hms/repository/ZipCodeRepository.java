@@ -7,6 +7,5 @@ import java.util.Optional;
 
 public interface ZipCodeRepository extends JpaRepository<ZipCode, Long> {
 
-
     Optional<ZipCode> findByZipCode(String zipCode);
 }

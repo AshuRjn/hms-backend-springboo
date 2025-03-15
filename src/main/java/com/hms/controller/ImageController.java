@@ -1,8 +1,7 @@
 package com.hms.controller;
 
 import com.hms.Service.ImageService;
-import com.hms.Service.PropertyService;
-import com.hms.Service.S3BucketService;
+import com.hms.utility.S3BucketService;
 import com.hms.entity.AppUser;
 import com.hms.entity.Images;
 import org.springframework.http.HttpStatus;

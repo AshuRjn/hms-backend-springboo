@@ -14,11 +14,6 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
 
     boolean existsByNameAndCityIdAndCountryId(String name, Long cityId, Long countryId);
 
-    // setting state = null after delete state
-    @Modifying
-    @Query("UPDATE Property p SET p.state = NULL WHERE p.state.id = :stateId")
-    void updateStateToNull(@Param("stateId") Long stateId);
-
     //if we use more than one field to search hotels make all filed as name
     @Query("select p FROM Property p JOIN p.city c JOIN p.country co" +
             " where c.cityName=:name or co.countryName=:name")

@@ -18,19 +18,17 @@ public class PropertyService {
     private  final PropertyRepository propertyRepository;
     private  final CountryRepository countryRepository;
     private  final CityRepository cityRepository;
-    private  final StateRepository stateRepository;
+
     private  final ZipCodeRepository zipCodeRepository;
     private  final ModelMapper modelMapper;
     public PropertyService(PropertyRepository propertyRepository,
                            CountryRepository countryRepository,
                            CityRepository cityRepository,
-                           StateRepository stateRepository,
                            ZipCodeRepository zipCodeRepository,
                            ModelMapper modelMapper) {
         this.propertyRepository = propertyRepository;
         this.countryRepository = countryRepository;
         this.cityRepository = cityRepository;
-        this.stateRepository = stateRepository;
         this.zipCodeRepository = zipCodeRepository;
         this.modelMapper = modelMapper;
     }
@@ -63,16 +61,12 @@ public class PropertyService {
         Country country = countryRepository.findById(propertyDTO.getCountryId())
                 .orElseThrow(() -> new RuntimeException("Country not found with ID: " + propertyDTO.getCountryId()));
 
-        State state = stateRepository.findById(propertyDTO.getStateId())
-                   .orElseThrow(() -> new RuntimeException("State not found with ID: " + propertyDTO.getStateId()));
-
         ZipCode zipcode = zipCodeRepository.findById(propertyDTO.getZipId())
                 .orElseThrow(() -> new RuntimeException("Zipcode not found with ID: " + propertyDTO.getZipId()));
         // Set the existing city and country
 
         property.setCity(city);
         property.setCountry(country);
-        property.setState(state);
         property.setZipCode(zipcode);
 
         Property save = propertyRepository.save(property);
@@ -133,16 +127,6 @@ public class PropertyService {
                         .orElseThrow(() -> new RuntimeException("Invalid country ID: " + propertyDTO.getCountryId()));
                 existingProperty.setCountry(country);
             }
-        }
-
-        if (propertyDTO.getStateId() != null) {
-            if (existingProperty.getState() == null || !propertyDTO.getStateId().equals(existingProperty.getState().getId())) {
-                State state = stateRepository.findById(propertyDTO.getStateId())
-                        .orElseThrow(() -> new RuntimeException("Invalid state ID: " + propertyDTO.getStateId()));
-                existingProperty.setState(state);
-            }
-        } else {
-            existingProperty.setState(null); // ✅ Allow removal of state
         }
 
         if (propertyDTO.getZipId() != null) {

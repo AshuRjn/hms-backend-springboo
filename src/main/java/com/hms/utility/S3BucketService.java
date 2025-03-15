@@ -1,4 +1,4 @@
-package com.hms.Service;
+package com.hms.utility;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
