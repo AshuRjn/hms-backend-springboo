@@ -26,9 +26,13 @@ public class Rooms {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
+    @Column(name = "per_night_price", nullable = false)
+    private Integer perNightPrice;
+
     @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
+
 
 
 }

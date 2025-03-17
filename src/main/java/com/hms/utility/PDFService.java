@@ -2,7 +2,6 @@ package com.hms.utility;
 
 import com.hms.entity.Booking;
 import com.hms.entity.Property;
-import com.hms.repository.BookingRepository;
 import com.hms.repository.PropertyRepository;
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -19,15 +18,15 @@ import java.io.FileOutputStream;
 @Service
 public class PDFService {
 
-    private PropertyRepository propertyRepository;
-    private BookingRepository bookingRepository;
+    private final PropertyRepository propertyRepository;
 
-    public PDFService(PropertyRepository propertyRepository, BookingRepository bookingRepository) {
+
+    public PDFService(PropertyRepository propertyRepository) {
         this.propertyRepository = propertyRepository;
-        this.bookingRepository = bookingRepository;
+
     }
 
-    public Void generateBookingPdf(String filePath, Long propertyId, Booking booking) {
+    public void generateBookingPdf(String filePath, Long propertyId, Booking booking) {
 
         Property property = propertyRepository.findById(propertyId)
                 .orElseThrow(() -> new EntityNotFoundException("Property with this id not found !" + propertyId));
@@ -102,11 +101,16 @@ public class PDFService {
             bookingTable.addCell("Number of Guests");
             bookingTable.addCell(booking.getNoOfGuest().toString());
             bookingTable.addCell("Room Type");
-            bookingTable.addCell(booking.getRoom().getRoomsType()); // Assuming the Room object is set
+            bookingTable.addCell(booking.getRoom().getRoomsType());
             bookingTable.addCell("Check-In Date");
             bookingTable.addCell(booking.getCheckInDate().toString());
             bookingTable.addCell("Check-Out Date");
             bookingTable.addCell(booking.getCheckOutDate().toString());
+            bookingTable.addCell("Total Stay Days");
+            bookingTable.addCell(String.valueOf(booking.getTotalStayDays()));
+            bookingTable.addCell("Total price");
+            bookingTable.addCell(booking.getTotalPrice().toString());
+
             document.add(bookingTable);
 
             // Adding property details heading
@@ -116,24 +120,7 @@ public class PDFService {
             document.add(propertyDetailsHeading);
 
             // Property Information Table
-            PdfPTable propertyTable = new PdfPTable(2);
-            propertyTable.setWidthPercentage(100);
-            propertyTable.addCell("Accommodation ID");
-            propertyTable.addCell(property.getId().toString());
-            propertyTable.addCell("Venue Name ");
-            propertyTable.addCell(property.getName());
-            propertyTable.addCell("No of Rooms");
-            propertyTable.addCell(property.getNoOfRooms().toString());
-            propertyTable.addCell("No of Beds");
-            propertyTable.addCell(property.getNoOfBeds().toString());
-            propertyTable.addCell("No of Bathroom");
-            propertyTable.addCell(property.getNoOfBathroom().toString());
-            propertyTable.addCell("Country");
-            propertyTable.addCell(property.getCountry().getCountryName());
-            propertyTable.addCell("City");
-            propertyTable.addCell(property.getCity().getCityName());
-            propertyTable.addCell("ZipCode");
-            propertyTable.addCell(property.getZipCode().getZipCode());
+            PdfPTable propertyTable = getPdfPTable(property);
             document.add(propertyTable);
 
             // Signature Section
@@ -148,9 +135,11 @@ public class PDFService {
             document.add(signatureLine);
 
             // Adding contact info at the bottom of the page
-            Paragraph contactInfo = new Paragraph("For any inquiries or changes to your booking, please contact us at:\n" +
-                    "Phone: +1-800-123-4567 | Email: support@theemeraldresort.com\n" +
-                    "Visit our website: www.emeraldresort.com", FontFactory.getFont(FontFactory.HELVETICA, 12, new BaseColor(128, 128, 128)));
+            Paragraph contactInfo = new Paragraph("""
+    For any inquiries or changes to your booking, please contact us at:
+    Phone: +1-800-123-4567 | Email: support@theemeraldresort.com
+    Visit our website: www.emeraldResort.com
+    """,  FontFactory.getFont(FontFactory.HELVETICA, 12, new BaseColor(128, 128, 128)));
             contactInfo.setAlignment(Element.ALIGN_CENTER);
             contactInfo.setSpacingBefore(20f);
             document.add(contactInfo);
@@ -161,7 +150,28 @@ public class PDFService {
             e.printStackTrace();
         }
 
-        return null;
+    }
+
+    private static PdfPTable getPdfPTable(Property property) {
+        PdfPTable propertyTable = new PdfPTable(2);
+        propertyTable.setWidthPercentage(100);
+        propertyTable.addCell("Accommodation ID");
+        propertyTable.addCell(property.getId().toString());
+        propertyTable.addCell("Venue Name ");
+        propertyTable.addCell(property.getName());
+        propertyTable.addCell("No of Rooms");
+        propertyTable.addCell(property.getNoOfRooms().toString());
+        propertyTable.addCell("No of Beds");
+        propertyTable.addCell(property.getNoOfBeds().toString());
+        propertyTable.addCell("No of Bathroom");
+        propertyTable.addCell(property.getNoOfBathroom().toString());
+        propertyTable.addCell("Country");
+        propertyTable.addCell(property.getCountry().getCountryName());
+        propertyTable.addCell("City");
+        propertyTable.addCell(property.getCity().getCityName());
+        propertyTable.addCell("ZipCode");
+        propertyTable.addCell(property.getZipCode().getZipCode());
+        return propertyTable;
     }
 
 }

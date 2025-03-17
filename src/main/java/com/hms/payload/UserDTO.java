@@ -10,6 +10,7 @@ public class UserDTO {
     private String username;
     private String name;
     private String email;
+    private String phoneNumber;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 }

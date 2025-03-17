@@ -7,6 +7,8 @@ import com.hms.repository.RoomsRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RoomService {
     private RoomsRepository roomsRepository;
@@ -17,14 +19,19 @@ public class RoomService {
         this.propertyRepository = propertyRepository;
     }
 
-    public Rooms addRooms(Rooms roomsType, Long propertyId) {
+
+    public Rooms addRooms(Rooms rooms, Long propertyId) {
 
         Property property = propertyRepository.findById(propertyId)
-                .orElseThrow(() -> new EntityNotFoundException("Property Not Found with this Id" + propertyId));
+                .orElseThrow(() -> new EntityNotFoundException("Property with this id not exists" + propertyId));
 
+        rooms.setProperty(property);
+        return roomsRepository.save(rooms);
 
-        roomsType.setProperty(property);
-        Rooms saveRoom = roomsRepository.save(roomsType);
-        return saveRoom;
+    }
+
+    public List<Rooms> getAllRooms() {
+        List<Rooms> roomsList = roomsRepository.findAll();
+        return roomsList;
     }
 }

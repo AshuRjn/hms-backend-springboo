@@ -21,6 +21,7 @@ public class BookingController {
 
     }
 
+// Booked hotel, and it will generate pdf of booking and send it to email or sms
     @PostMapping("/create-booking")
     public ResponseEntity<String> createBooking(
             @RequestParam Long propertyId,
